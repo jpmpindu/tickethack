@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Trip = require('../models/trips');
+const Cart = require('../models/carts');
 
     // Rechercher un trajet
 router.post('/trips/search', async (req, res) => {
@@ -71,7 +72,11 @@ router.post('/trips/search', async (req, res) => {
   }
 });
 
-
+router.delete("/carts/id", (req, res) => {
+Cart.deleteById(_id).then((data) => {
+res.json({ carts: data });
+});
+});
 
 
 
