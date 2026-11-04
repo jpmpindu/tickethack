@@ -3,7 +3,7 @@ const router = express.Router();
 const Trip = require('../models/trips');
 const Cart = require('../models/carts');
 
-    // Rechercher un trajet
+// Rechercher un trajet
 router.post('/trips/search', async (req, res) => {
   const { departure, arrival, date } = req.body;
   console.log('Départ :', departure);
@@ -72,10 +72,24 @@ router.post('/trips/search', async (req, res) => {
   }
 });
 
-router.delete("/carts/id", (req, res) => {
-Cart.deleteById(_id).then((data) => {
-res.json({ carts: data });
-});
+// Supprimer un panier
+router.delete("/carts/:id", async (req, res) => {
+
+  const { id } = req.params;
+
+  const cartToDelete = await Cart.findByIdAndDelete(id);
+
+  if (!cartToDelete) {
+    return res.json({
+      result: false,
+      error: "Cart not found"
+    });
+  }
+
+  res.json({
+    result: true,
+    message: "Cart deleted"
+  });
 });
 
 
