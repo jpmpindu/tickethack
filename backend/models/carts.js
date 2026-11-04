@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
-const cartSchema = mongoose.Schema({
-  departure: String,
-  arrival: String,
-  date: Date,
-  price: Number,
+const cartSchema = new mongoose.Schema({
+  trip: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'trips',
+    required: true,
+  },
 });
 
-const Cart = mongoose.model('carts', cartSchema);
-
+const Cart = mongoose.model('Cart', cartSchema);
 module.exports = Cart;
+
