@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tickethack - Cart</title>
+    <link rel="stylesheet" href="style/common.css" />
+    <link rel="stylesheet" href="style/cart.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <h2>
+        <a href="index.html">Tickethack</a>
+      </h2>
+
+      <div class="nav-links">
+        <a href="cart.html">Cart</a>
+        <a href="booking.html">Bookings</a>
+      </div>
+    </nav>
+
+    <!-- CART CONTENT -->
+    <main class="cart-container">
+      <div class="cart-card">
+        <h2 id="cart-title">My cart</h2>
+
+        <div id="cart-items"></div>
+
+        <div id="cart-footer" class="cart-footer">
+          <p>Total : <span id="cart-total">0</span> €</p>
+          <button id="purchase">Purchase</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="script/cart.js"></script>
+  </body>
+</html>

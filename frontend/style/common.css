@@ -1,0 +1,82 @@
+/* ==========================================================
+   COMMON : styles partagés par toutes les pages
+   ========================================================== */
+
+/* VARIABLES */
+
+:root {
+  --green: #55ad9b;
+  --green-dark: #449987;
+  --navy: #001443;
+  --white: #ffffff;
+  --text: #222222;
+  --text-soft: #333333;
+  --grey-light: #f1f2f1;
+  --item-bg: #f7f1f1;
+  --navbar-height: 70px;
+}
+
+/* RESET */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* BOUTONS (style commun à tous les boutons verts) */
+
+.search-card button,
+.book-button,
+.delete-cart,
+#purchase {
+  background-color: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.book-button:hover,
+.delete-cart:hover,
+#purchase:hover {
+  background-color: var(--green-dark);
+}
+
+/* NAVBAR */
+
+.navbar {
+  height: var(--navbar-height);
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+}
+
+.navbar h2 a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  color: var(--text-soft);
+  text-decoration: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+}

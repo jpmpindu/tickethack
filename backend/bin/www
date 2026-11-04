@@ -1,72 +1,109 @@
-// Charger les variables d'environnement
+// ==========================================================
+// bin/www : point de départ du serveur
+// Lancé par "npm start" (voir "scripts" dans package.json)
+// ==========================================================
+
+// Charger les variables d'environnement du fichier .env (MONGODB_URI, PORT)
 require('dotenv').config();
 
 /**
  * Module dependencies.
  */
+
+// Importer l'application Express configurée dans app.js
 var app = require('../app');
+// debug : affiche des messages seulement si la variable DEBUG=backend:server est définie
 var debug = require('debug')('backend:server');
+// http : module de Node.js qui crée le serveur web
 var http = require('http');
+// Importer la fonction qui connecte MongoDB
 var connectDB = require('../models/connection');
 
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || '3000');
+
+// Utiliser le PORT du fichier .env, ou 3001 s'il n'est pas défini
+var port = normalizePort(process.env.PORT || '3001');
+// Enregistrer le port dans l'application Express
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
+
+// Créer le serveur HTTP : chaque requête reçue est transmise à l'application Express
 var server = http.createServer(app);
 
 /**
  * Connect to MongoDB before starting the server.
  */
+
+// Se connecter à MongoDB d'abord ; ".then" s'exécute une fois la connexion réussie
+// (si elle échoue, connection.js arrête le programme)
 connectDB().then(() => {
+  // Démarrer le serveur : il attend les requêtes sur le port choisi
   server.listen(port);
+  // Si le démarrage échoue, appeler la fonction onError
   server.on('error', onError);
+  // Quand le serveur est prêt, appeler la fonction onListening
   server.on('listening', onListening);
 });
 
 /**
  * Normalize a port into a number, string, or false.
  */
+
+// Transformer la valeur du port en nombre (ex : "3001" → 3001)
 function normalizePort(val) {
+  // parseInt convertit le texte en nombre entier (base 10)
   var port = parseInt(val, 10);
 
+  // Ce n'est pas un nombre : c'est un "named pipe" (chemin), on le garde tel quel
   if (isNaN(port)) {
     return val;
   }
 
+  // Nombre valide (positif) : c'est le numéro du port
   if (port >= 0) {
     return port;
   }
 
+  // Nombre négatif : valeur invalide
   return false;
 }
 
 /**
  * Event listener for HTTP server "error" event.
  */
+
+// Gérer les erreurs au démarrage du serveur
 function onError(error) {
+  // Erreur qui ne vient pas du démarrage ("listen") : la laisser remonter
   if (error.syscall !== 'listen') {
     throw error;
   }
 
+  // Texte pour les messages : "Port 3001" (ou "Pipe ..." si c'est un chemin)
   var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
+  // Afficher un message clair selon le type d'erreur
   switch (error.code) {
+    // EACCES : pas la permission d'utiliser ce port (ports < 1024 sur Mac/Linux)
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
+      // Arrêter le programme avec un code d'erreur
       process.exit(1);
       break;
 
+    // EADDRINUSE : le port est déjà utilisé (un autre serveur tourne déjà)
     case 'EADDRINUSE':
       console.error(bind + ' is already in use');
+      // Arrêter le programme avec un code d'erreur
       process.exit(1);
       break;
 
+    // Autre erreur : la laisser remonter
     default:
       throw error;
   }
@@ -75,10 +112,15 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
+
+// Appelée quand le serveur est prêt à recevoir des requêtes
 function onListening() {
+  // Récupérer l'adresse sur laquelle le serveur écoute
   var addr = server.address();
 
+  // Texte pour le message : "port 3001" (ou "pipe ..." si c'est un chemin)
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
 
+  // Afficher "Listening on port 3001" (seulement avec DEBUG=backend:server)
   debug('Listening on ' + bind);
 }

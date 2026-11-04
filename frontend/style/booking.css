@@ -1,0 +1,94 @@
+/* ==========================================================
+   RÉSERVATIONS (booking.html)
+   ========================================================== */
+
+.bookings-container {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 40px 20px;
+  background-color: var(--grey-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookings-card {
+  width: 75%;
+  max-width: 950px;
+  min-height: 220px;
+  padding: 30px 40px 20px;
+  border-radius: 12px;
+  background-color: var(--white);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+}
+
+.bookings-card h2 {
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 32px;
+}
+
+.bookings-card p {
+  font-size: 16px;
+  color: var(--text);
+}
+
+/* Messages "No booking yet" */
+
+#booking-items > p {
+  margin-bottom: 20px;
+}
+
+#booking-items > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Une réservation */
+
+.booking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 12px;
+  margin: 12px 0;
+  border-radius: 5px;
+  background-color: var(--item-bg);
+}
+
+.booking-item p {
+  font-size: 15px;
+}
+
+.booking-footer {
+  margin-top: 48px;
+}
+
+.booking-footer hr {
+  width: 180px;
+  border: none;
+  border-top: 2px solid #777777;
+}
+
+.booking-footer p {
+  margin-top: 20px;
+  color: var(--green);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  .bookings-card {
+    width: 100%;
+    padding: 25px 15px;
+  }
+
+  .booking-item {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
