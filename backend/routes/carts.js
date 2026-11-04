@@ -3,27 +3,39 @@ const express = require('express');
 // Créer un router, branché dans app.js sur "/carts"
 const router = express.Router();
 
-// Importer le modèle Cart pour lire et modifier la collection "carts"
 const Cart = require('../models/carts');
 
-// GET /carts : récupérer tout le panier
+/* GET cart listing. */
 router.get('/', async (req, res) => {
-  // "try" : en cas d'erreur de la base, on passe dans "catch"
-  try {
-    // find() récupère tous les éléments du panier
-    // populate('trip') remplace l'identifiant du trajet par le trajet complet
-    const carts = await Cart.find().populate('trip');
+  const carts = await Cart.find().populate('trip');
 
-    // Envoyer le panier au frontend
+  res.json({
+    result: true,
+    carts: carts,
+  });
+});
+
+router.post('/add', async (req, res) => {
+  console.log('BODY REÇU :', req.body);
+
+  const { trip } = req.body;
+
+  if (!trip) {
+    return res.status(400).json({
+      result: false,
+      message: 'Aucun identifiant de trajet reçu',
+    });
+  }
+
+  try {
+    const newCart = new Cart({ trip });
+    const savedCart = await newCart.save();
+
     res.json({
       result: true,
-      carts: carts,
+      cart: savedCart,
     });
   } catch (error) {
-    // Afficher l'erreur dans le terminal
-    console.error(error);
-
-    // Code 500 = erreur côté serveur
     res.status(500).json({
       result: false,
       message: error.message,
