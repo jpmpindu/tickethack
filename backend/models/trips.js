@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Importer Mongoose pour décrire la forme des données
 const mongoose = require('mongoose');
 
@@ -20,17 +19,3 @@ const Trip = mongoose.model('trips', tripSchema);
 
 // Exporter le modèle pour l'utiliser dans routes/trips.js
 module.exports = Trip;
-=======
-const mongoose = require('mongoose');
-
-const tripSchema = mongoose.Schema({
-  departure: String,
-  arrival: String,
-  date: Date,
-  price: Number
-});
-
-const Trip = mongoose.model('trips', tripSchema, );
-
-module.exports = Trip;
->>>>>>> yazid
