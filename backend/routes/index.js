@@ -72,10 +72,26 @@ router.post('/trips/search', async (req, res) => {
   }
 });
 
-router.delete("/carts/id", (req, res) => {
-Cart.deleteById(_id).then((data) => {
-res.json({ carts: data });
-});
+
+
+// Supprimer un panier
+router.delete("/carts/:id", async (req, res) => {
+
+  const { id } = req.params;
+
+  const cartToDelete = await Cart.findByIdAndDelete(id);
+
+  if (!cartToDelete) {
+    return res.json({
+      result: false,
+      error: "Cart not found"
+    });
+  }
+
+  res.json({
+    result: true,
+    message: "Cart deleted"
+  });
 });
 
 
