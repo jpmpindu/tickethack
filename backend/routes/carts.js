@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
     result: true,
     carts: carts,
   });
+
 });
 
 router.post('/add', async (req, res) => {

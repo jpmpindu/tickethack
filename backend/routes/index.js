@@ -4,6 +4,7 @@ const Trip = require('../models/trips');
 const Cart = require('../models/carts');
 
 // Rechercher un trajet
+
 router.post('/trips/search', async (req, res) => {
   const { departure, arrival, date } = req.body;
   console.log('Départ :', departure);

@@ -67,5 +67,6 @@ app.use('/bookings', bookingRouter);
 // Toutes les routes de users.js commencent par /users
 app.use('/users', usersRouter);
 
+
 // Exporter l'application pour que bin/www puisse la démarrer
 module.exports = app;
